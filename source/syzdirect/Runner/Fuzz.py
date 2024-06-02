@@ -71,6 +71,8 @@ def MultirunFuzzer():
                 
                 bug_title=datapoint['repro bug title']
                 if pd.isna(bug_title):
+                    config['bugdesc']=None
+                else:
                     config['bugdesc']=bug_title
                 
 
