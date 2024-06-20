@@ -21,8 +21,6 @@ def PrepareSourceCode():
         applykcovcmd=f"cd {caseSrcDir} && patch -p1 < {Config.KcovPatchPath}"
         if Config.ExecuteCMD(applykcovcmd)[1].find("FAILED") != -1:
             Config.logging.error(f"[case {caseIdx}] Fail to apply kcov patch!!! Please manually apply!!!")
-            Config.logging.error(f"[case {caseIdx}] Patch application output: {output[0]}")
-            Config.logging.error(f"[case {caseIdx}] Patch application errors: {output[1]}")
         
         
         Config.logging.info(f"[case {caseIdx}] Finished preparing source code")
