@@ -83,7 +83,7 @@ exec $CLANG "$@"
 
 
 
-        compile_command = f"cd {Config.getSrcDirByCase(caseIdx)} && git checkout -- scripts/Makefile.kcov && make clean && make mrproper && make CC={Config.EmitScriptPath} O={caseBCDir} olddefconfig && make CC=\'{Config.EmitScriptPath}\' O={caseBCDir} -j{Config.CPUNum}"
+        compile_command = f"cd {Config.getSrcDirByCase(caseIdx)} && git checkout -- scripts/Makefile.kcov && make clean && make mrproper && make CC={Config.EmitScriptPath} O={caseBCDir} olddefconfig && make CC=\'{Config.EmitScriptPath}\' O={caseBCDir} -j`nproc`"
         # print(Config.ExecuteCMD(compile_command))
         os.system(compile_command)
         if IsCompilationSuccessfulByCase(caseBCDir):
@@ -130,7 +130,7 @@ export CFLAGS_KCOV := $(kcov-flags-y)
 cd %s
 CC=\"%s\"
 make ARCH=x86_64 CC=$CC O=%s olddefconfig
-make ARCH=x86_64 CC=$CC O=%s -j%s
+make ARCH=x86_64 CC=$CC O=%s -j$(nproc)
     '''%(caseSrcDir, Config.ClangPath, tempBuildDir,tempBuildDir, Config.CPUNum)
 
             compile_script_path = os.path.join(currentDistDir, "distance_kernel_compile.sh")
